@@ -1,0 +1,41 @@
+<!-- Title -->
+<div  class="container">
+        <div ng-show="items" class="row">
+            <div class="col-lg-12">
+                <h1>Items:</h1>
+            </div>
+        </div>
+        <div ng-show="!user.address" class="alert alert-warning">
+            <strong>You must update your address before trading</strong>
+        </div>
+        <div ng-hide="!success_message" class="alert alert-success">
+            <strong>{{success_message}}</strong>
+        </div>
+
+        <!-- Page Features -->
+        <div class="row text-center">
+
+            <div ng-repeat="item in items" class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <div class="image">
+                        <img height="100" src="{{item.image}}" alt="">
+                    </div>
+                    <div class="caption">
+                        <div class="name">
+                            <h3>{{item.name}}</h3>
+                        </div>
+                        <div class="snippet">
+                            <p>{{item.description}}</p>
+                        </div>
+                        <div>
+                            <p>Value: ${{item.value}}</p>
+                        </div>
+                        <p>
+                            <a ng-disabled="item.current_owner._id === user._id || item.proposed_owner._id === user._id || item.proposed_owner || !user.address" href="" ng-click="propose_trade($event)" id="{{item}}" class="btn btn-primary">Request item</a> 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+</div>
