@@ -5,10 +5,16 @@
                 <h1>Items:</h1>
             </div>
         </div>
+        <div ng-hide="!error_message" class="alert alert-warning">
+            <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{error_message}}</strong>
+        </div>
         <div ng-show="!user.address" class="alert alert-warning">
+            <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>You must update your address before trading</strong>
         </div>
         <div ng-hide="!success_message" class="alert alert-success">
+            <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>{{success_message}}</strong>
         </div>
 

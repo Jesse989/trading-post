@@ -1,52 +1,60 @@
 <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#/add">Add item</a></li>
-            <li><a href="#/items">View items</a></li>
-          </ul>
-           <div ng-controller="authController">
-              <h4>Profile info</h4>
-              <p><span class="text-muted">{{user.username}}</span></p>
-              <p><span class="text-muted">{{user.name}}</span></p>
-              <p><span class="text-muted">{{user.address}}</span></p>
-              <p><span class="text-muted">{{user.city}}, {{user.state}}, {{user.zip}}</span></p>
-              </div>
-            <ul class="nav nav-sidebar">
-                <li><a href="#/profile">Edit profile</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="sub-header">Items:</h1>
-          <hr>
-          <div class="table-responsive" ng-controller="itemController">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Recipient</th>
-                  <th>Controlls</th>
-                </tr>
-              </thead>
-              <tbody ng-repeat="item in items | filter: user._id">
-                <tr>
-                  <td><img width="150px" src='{{item.image}}'></img></td>
-                  <td>{{item.name}}</td>
-                  <td>{{item.description}}</td>
-                  <td>{{item.proposed_owner.address}} <br> {{item.proposed_owner.city}}, {{item.proposed_owner.zip}}, {{item.proposed_owner.state}}</td>
-                  <td><a ng-show="item.proposed_owner._id && item.current_owner._id === user._id" class="btn btn-default" href="" ng-click="transfer_owner($event)" id="{{item}}">Mailed</a>
-                  <a ng-hide="item.current_owner._id === user._id" class="btn btn-warning" href="" ng-click="cancel_request($event)" id="{{item}}">Cancel request</a>
-                  <a ng-show="item.current_owner._id === user._id" class="btn btn-success" href="#/edit" ng-click="edit($event)" id="{{item}}">Edit</a>
-                  <button ng-show="item.current_owner._id === user._id" class="btn btn-danger" ng-click="delete($event)" id="{{item._id}}">Delete</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <div ng-controller="authController">
+        <h4>Profile info</h4>
+        <p><span class="text-muted">{{user.username}}</span></p>
+        <p><span class="text-muted">{{user.name}}</span></p>
+        <p><span class="text-muted">{{user.address}}</span></p>
+        <p><span class="text-muted">{{user.city}}, {{user.state}}, {{user.zip}}</span></p>
       </div>
+      <ul class="nav nav-sidebar">
+        <li><a href="#/profile">Edit profile</a></li>
+      </ul>
     </div>
+  </div>
+
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="sub-header">Items:</h1>
+    <hr>
+    <div class="table-responsive" ng-controller="itemController">
+      <div ng-hide="!error_message" class="alert alert-warning">
+        <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{error_message}}</strong>
+      </div>
+      <div ng-hide="!success_message" class="alert alert-success">
+        <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>{{success_message}}</strong>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Recipient</th>
+            <th>Controls</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="item in items | filter: user._id">
+          <tr>
+            <td><img width="150px" src='{{item.image}}'></img>
+            </td>
+            <td>{{item.name}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.proposed_owner.address}} <br> {{item.proposed_owner.city}}, {{item.proposed_owner.zip}}, {{item.proposed_owner.state}}</td>
+            <td>
+              <div class="col-xs-12">
+              <a ng-show="item.proposed_owner._id && item.current_owner._id === user._id" class="btn btn-default" href="" ng-click="transfer_owner($event)" id="{{item}}">Mailed</a>
+              <a ng-hide="item.current_owner._id === user._id" class="btn btn-warning" href="" ng-click="cancel_request($event)" id="{{item}}">Cancel request</a>
+              <a ng-show="item.current_owner._id === user._id" class="btn btn-success" href="#/edit" ng-click="edit($event)" id="{{item}}">Edit</a>
+              <button ng-show="item.current_owner._id === user._id" class="btn btn-danger" ng-click="delete($event)" id="{{item._id}}">Delete</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
